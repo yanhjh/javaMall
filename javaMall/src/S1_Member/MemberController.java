@@ -110,14 +110,27 @@ public class MemberController {
 					else {continue;}
 					}
 					else if(num==2) {System.out.println("수정할 Pw입력");
-					String newPW=scan.next();}
+					String newPW=scan.next();
+					check=memberDAO.checkNewPw(pw, newPW);
+					if(check) {memberDAO.setMemberPw(pw,newPW,memberLoginID);}
+						
+					
+					else {continue;}
+					}
 					else if(num==3) {System.out.println("수정할 이름 입력");
-					String newName=scan.next();}
+					String newName=scan.next();
+					String name=memberDAO.getname(memberLoginID);
+					check=memberDAO.checkNewName(name,newName);
+					if(check) {
+						memberDAO.setMemberName(name,newName,memberLoginID);
+					}
+					else {continue;}
+					}
 					
 					else {System.out.println("1~3사이 값을 입력하세요");continue;}
 					
 				}
-				System.out.println("비밀번호를 다시 확인하세요");continue;
+				else{System.out.println("비밀번호를 다시 확인하세요");continue;}
 				
 			}
 		}

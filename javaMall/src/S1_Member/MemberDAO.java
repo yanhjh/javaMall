@@ -27,6 +27,10 @@ public class MemberDAO {
 		}
 		return false;
 	}
+	public boolean checkNewPw(String Pw, String newPw) {
+		if(Pw.equals(newPw)) {System.out.println("입력하신 새로운 비밀번호가 기존과 동일한 비밀번호 입니다.");return false;}
+		return true;
+	}
 	public boolean checkNewId(String NewId,String memberLoginId) {
 		if(NewId.equals(memberLoginId)) {
 			System.out.println("기존과 동일한 아이디입니다. 다른아이디를 입력해주세요");return false;}
@@ -44,6 +48,45 @@ public class MemberDAO {
 			}
 		}
 		return true;
+	}
+	public void setMemberName(String name, String newName, String memberLoginID) {
+		int idx=-1;
+		for(int i=0;i<memberList.size();i++) {
+			if(memberList.get(i).getMemberID().equals(memberLoginID)) {
+				idx=i;break;
+			}
+		}
+		
+		Member m=memberList.get(idx);
+		m.setMemberName(newName);
+		System.out.println("이름 수정완료 "+name+" ==> "+newName);
+		
+	}
+	public boolean checkNewName(String name,String newName) {
+		if(name.equals(newName)) {System.out.println("기존과 동일한 이름입니다");return false;}
+		return true;
+		
+	}
+	public String getname(String memberLoginID) {
+		for(int i=0;i<memberList.size();i++) {
+			if(memberLoginID.equals(memberList.get(i).getMemberID())) {
+				return memberList.get(i).getMemberName();
+			}
+		}
+		return null;
+		
+	}
+	public void setMemberPw(String pw,String newPW, String memberLoginID) {
+		int idx=-1;
+		for(int i=0;i<memberList.size();i++) {
+			if(memberList.get(i).getMemberID().equals(memberLoginID)) {
+				idx=i;break;
+			}
+		}
+		
+		Member m=memberList.get(idx);
+		m.setMemberPW(newPW);
+		System.out.println("PW 수정완료 "+pw+" ==> "+newPW);
 	}
 	public void setMemberID(String newId, String memberLoginID) {
 		int idx=-1;
