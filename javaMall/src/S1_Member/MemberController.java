@@ -106,7 +106,7 @@ public class MemberController {
 					if(num==1) {System.out.println("수정할 ID입력");
 					String newID=scan.next();
 					check=memberDAO.checkNewId(newID,memberLoginID);
-					if(check) {memberDAO.setMemberID(newID);}
+					if(check) {memberDAO.setMemberID(newID,memberLoginID);}
 					else {continue;}
 					}
 					else if(num==2) {System.out.println("수정할 Pw입력");

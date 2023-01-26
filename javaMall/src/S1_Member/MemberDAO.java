@@ -45,12 +45,18 @@ public class MemberDAO {
 		}
 		return true;
 	}
-	public void setMemberID(String newId , int idx) {
+	public void setMemberID(String newId, String memberLoginID) {
+		int idx=-1;
+		for(int i=0;i<memberList.size();i++) {
+			if(memberList.get(i).getMemberID().equals(memberLoginID)) {
+				idx=i;break;
+			}
+		}
 		Member m = memberList.get(idx);
 		m.setMemberID(newId);
 		memberList.set(idx, m);
 	
-		
+		System.out.println("ID 수정 완료 "+memberLoginID+" ==>  "+newId);
 	}
 	public void addMember(Member member) {
 		memberList.add(member);
