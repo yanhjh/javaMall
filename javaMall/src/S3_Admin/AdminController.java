@@ -49,7 +49,7 @@ public class AdminController {
 	public void menuMemberAdmin() {
 		while (true) {
 			System.out.println("=== 회원 관리자 ===");
-			System.out.println("[1.회원 목록] [2.주문목록 ] [0.뒤로가기]");
+			System.out.println("[1.회원 목록] [2.주문목록 ] [3.수령확인 목록] [0.뒤로가기]");
 			int select = scan.nextInt();
 			if (select == 0) {
 				break;
@@ -59,6 +59,8 @@ public class AdminController {
 			} else if (select == 2) {
 				cartController.printMemberOrderList();
 
+			} else if (select==3) {
+				cartController.printReceiveList();
 			}
 		}
 	}

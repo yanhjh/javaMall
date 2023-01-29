@@ -25,6 +25,10 @@ public class CartController {
 		cartDAO.showErrorCart();
 
 	}
+	public void addReceiveList(String memberLoginID,int num) {
+		cartDAO.addReceiveList(memberLoginID,num);
+		
+	}
 
 	public boolean checkCartListSize() {
 		return cartDAO.checkCartListSize();
@@ -34,6 +38,13 @@ public class CartController {
 		this.cartDAO = cartDAO;
 		scan = Util.scan;
 		mallController = MallController.getInstance();
+	}
+	public void memberOrderListPrint(String memberLoginID) {
+		cartDAO.memberOrderListPrint( memberLoginID);
+		
+	}
+	public void printReceiveList() {
+		cartDAO.printReceiveList();
 	}
 
 	public void printMemberOrderList() {
@@ -58,6 +69,7 @@ public class CartController {
 			if (sel == 0) {
 				break;
 			} else if (sel == 1) {
+				
 				ArrayList<Cart> oneCartList = cartDAO.getOneCartList(mallController.getMemberLoginID());
 				cartDAO.printOneCartList(oneCartList);
 			} else if (sel == 2) {
@@ -117,6 +129,11 @@ public class CartController {
 	public void removeCartList(String itemName) {
 		cartDAO.removeCartListItem(itemName);
 	}
+	public boolean orderListCheck(String memberLoginID) {
+		return cartDAO.orderListCheck(memberLoginID);
+		
+	}
+	
 
 	public void printAllCartList() {
 		cartDAO.printAllCartList();

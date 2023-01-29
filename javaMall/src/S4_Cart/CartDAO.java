@@ -8,13 +8,18 @@ public class CartDAO {
 
 	private ArrayList<Cart> cartList;
 	private ArrayList<Cart> orderList;
+	private ArrayList<Cart> receiveList;
+	
 	private int cartNumber;
 
 	public CartDAO() {
 		cartList = new ArrayList<Cart>();
 		orderList = new ArrayList<Cart>();
+		receiveList =new ArrayList<Cart>();
+		
 		cartNumber = 1000;
 	}
+	
 
 	public int getCartNumber() {
 		cartNumber += 1;
@@ -37,6 +42,17 @@ public class CartDAO {
 			}
 		}
 	}
+	
+	public boolean orderListCheck(String memberLoginID) {
+		int count=0;
+		for(int i=0;i<orderList.size();i++) {
+			if(orderList.get(i).getMemberID().equals(memberLoginID)) {
+				count++;
+			}
+		}
+		if(count!=0) {return true;}
+	System.out.println("주문내역이 존재하지 않습니다");return false;}
+	
 
 	public boolean checkOrderList(String itemName) {
 		for (int i = 0; i < orderList.size(); i++) {
@@ -106,9 +122,40 @@ public class CartDAO {
 			}
 		}
 	}
+	public void addReceiveList(String memberLoginID,int num) {
+		int idx=-1;
+		for(int i=0;i<orderList.size();i++) {
+			if(orderList.get(i).getMemberID().equals(memberLoginID)) {
+				if(orderList.get(i).getNumber()==num) {
+					idx=i;
+					
+				}
+			}
+		}
+		if(idx==-1) {System.out.println("존재하지않는 주문번호입니다");return;}
+		System.out.println("수령확인 완료");
+		receiveList.add(orderList.get(idx));
+		orderList.remove(idx);
+		
+		
+		
+	}
+	public void memberOrderListPrint(String memberLoginID) {
+		for(int i=0;i<orderList.size();i++) {
+			if(orderList.get(i).getMemberID().equals(memberLoginID)) {
+				System.out.println(orderList.get(i));
+			}
+		}
+		
+	}
 
 	public void printOrderList() {
+		if(orderList.size()==0) {System.out.println("출력할 주문내역이 존재하지 않습니다.");return;}
 		System.out.println(orderList);
+	}
+	public void printReceiveList() {
+		if(receiveList.size()==0) {System.out.println("출력할 수령확인내역이 존재하지 않습니다.");return;}
+		System.out.println(receiveList);
 	}
 
 	public void addOrderList(String memberLoginID) {
@@ -175,7 +222,7 @@ public class CartDAO {
 	}
 
 	public boolean checkCartListSize() {
-		if (cartList.size() == 0) {
+		if (cartList.size() == 0) {System.out.println("아이템이 존재하지 않습니다.");
 			return false;
 		}
 		return true;

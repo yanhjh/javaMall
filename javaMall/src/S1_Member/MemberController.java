@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import S2_Item.ItemController;
 import S4_Cart.CartController;
+import S5_Board.BoardController;
 import S_MyUtil.Util;
 
 public class MemberController {
@@ -19,12 +20,14 @@ public class MemberController {
 	private MemberDAO memberDAO;
 	private ItemController itemController;
 	private CartController cartController;
+	private BoardController boardController;
 	private Scanner scan;
 
 	public void init(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
 		itemController = ItemController.getInstance();
 		cartController = CartController.getInstance();
+		boardController=BoardController.getInstance();
 		scan = Util.scan;
 		managerSetting();
 	}
@@ -81,11 +84,14 @@ public class MemberController {
 			if (select == 0) {
 				return null;
 			} else if (select == 1) {
-				cartController.checkCartListSize();
+				boolean check=itemController.checkItemListSize();
+				if(check) {
 				itemController.menuShop();
+				}
 			} else if (select == 2) {
 				cartController.menuCart();
 			} else if (select == 3) {
+				boardController.menuBoard();
 
 			}
 			else if(select==4) {
@@ -132,6 +138,16 @@ public class MemberController {
 				}
 				else{System.out.println("비밀번호를 다시 확인하세요");continue;}
 				
+			}
+			else if(select==6) {
+				boolean check=cartController.orderListCheck(memberLoginID);
+				if(check) {
+					cartController.memberOrderListPrint(memberLoginID);
+					System.out.println("수령확인할 주문번호 입력");
+					int num=scan.nextInt();
+					cartController.addReceiveList(memberLoginID,num);
+				}
+			
 			}
 		}
 	}

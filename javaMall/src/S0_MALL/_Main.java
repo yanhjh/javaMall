@@ -8,6 +8,8 @@ import S2_Item.ItemDAO;
 import S3_Admin.AdminController;
 import S4_Cart.CartController;
 import S4_Cart.CartDAO;
+import S5_Board.BoardController;
+import S5_Board.BoardDAO;
 import S_MyUtil.Util;
 
 public class _Main {
@@ -19,6 +21,7 @@ public class _Main {
 		MemberController.getInstance().init(new MemberDAO());		
 		ItemController.getInstance().init(new ItemDAO());
 		CartController.getInstance().init(new CartDAO());
+		BoardController.getInstance().init(new BoardDAO());
 		
 		MallController.getInstance().menuMall();
 		Util.scan.close();

@@ -10,6 +10,7 @@ public class MemberDAO {
 		setSampleData();
 	}
 	public void printMemberList() {
+		if(memberList.size()==0) {System.out.println("출력할 멤버가 존재하지 않습니다");return;}
 		System.out.println(memberList);
 	}
 	public void printSetMenu() {

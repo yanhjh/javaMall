@@ -27,6 +27,7 @@ public class MallController {
 		return memberLoginID;
 	}
 	
+	
 	public void menuMall() {
 		while(true) {
 			System.out.println("=== ºÓ«Œ∏Ù ===");
