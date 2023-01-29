@@ -23,14 +23,14 @@ public class BoardController {
 	private BoardDAO boardDAO;
 	private Scanner scan;
 	private MallController mallController;
-	private MemberController memberController;
+	
 	
 	
 	public void init(BoardDAO boardDAO) {
 		this.boardDAO = boardDAO;
 		scan=Util.scan;
 		mallController=MallController.getInstance();
-		memberController=MemberController.getInstance();
+		
 		
 		
 	}
@@ -49,15 +49,23 @@ public class BoardController {
 				if(check) {
 					while(true) {
 					
-					int count=0;
-					boardDAO.showBoard(count);
 					
+					boardDAO.showBoard();
+					boardDAO.setPageStatus();
 					boardDAO.pageSelect();
 
 					
 					
 					sel=scan.nextInt();
 					if(sel==0) {break;}
+					else if(sel==1) {System.out.println("현재 페이지내에 있는 글 중에서 확인할 게시글 번호를 입력하세요");
+					sel=scan.nextInt();
+					check=boardDAO.rangeCheck(sel);
+					if(check) {
+						boardDAO.printContent(sel);
+						
+					}	
+					continue;}
 					boardDAO.boardSelect(sel);
 					
 					
@@ -87,6 +95,18 @@ public class BoardController {
 				
 			}
 			else if(sel==3) {
+				System.out.println("pw입력");
+				String pw=scan.next();
+				boolean check=boardDAO.checkPw(mallController.getMemberLoginID(),pw);
+				if(check) {
+					check=boardDAO.showMyWriting(mallController.getMemberLoginID());
+					if(check) {
+						System.out.println("삭제할 게시글 번호를 입력해주세요");
+						sel=scan.nextInt();
+						boardDAO.deleteMyWriting(sel,mallController.getMemberLoginID());
+					}
+				}
+				else {System.out.println("비밀번호를 다시 확인해주세요.");}
 				
 			}
 		}

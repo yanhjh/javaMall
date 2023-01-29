@@ -16,6 +16,19 @@ public class MemberDAO {
 	public void printSetMenu() {
 		System.out.println("[1]ID 수정 [2]PW 수정 [3]이름 수정 [0]뒤로가기");
 	}
+	public boolean pwCheck(String memberLoginID,String memberLoginPw) {
+		for(int i=0;i<memberList.size();i++) {
+			if(memberList.get(i).getMemberID().equals(memberLoginID)) {
+				if(memberList.get(i).getMemberPW().equals(memberLoginPw)) {
+					
+					return true;
+				}
+				
+			}
+		}
+		return false;
+		
+	}
 	public boolean checkPw(String memberLoginID,String memberLoginPw) {
 		for(int i=0;i<memberList.size();i++) {
 			if(memberList.get(i).getMemberID().equals(memberLoginID)) {
@@ -28,6 +41,7 @@ public class MemberDAO {
 		}
 		return false;
 	}
+	
 	public boolean checkNewPw(String Pw, String newPw) {
 		if(Pw.equals(newPw)) {System.out.println("입력하신 새로운 비밀번호가 기존과 동일한 비밀번호 입니다.");return false;}
 		return true;

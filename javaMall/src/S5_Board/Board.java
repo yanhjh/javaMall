@@ -6,6 +6,11 @@ public class Board {
 	private String title;
 	private String content;
 	private String writer;
+	@Override
+	public String toString() {
+		return "Board [boardNum=" + boardNum + ", title=" + title + ", content=" + content + ", writer=" + writer
+				+ ", pw=" + pw + "]";
+	}
 	private String pw;
 	public Board() {}
 	
