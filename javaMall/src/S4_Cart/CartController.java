@@ -20,6 +20,13 @@ public class CartController {
 	private CartDAO cartDAO;
 	private Scanner scan;
 	private MallController mallController;
+	public void setMemberID(String newID,String memberLoginID) {
+		cartDAO.setMemberID(newID,memberLoginID);
+	}
+	public void setMemberLoginID(String newID) {
+		mallController.setMemberLoginID(newID);
+	}
+	
 
 	public void showErrorCart() {
 		cartDAO.showErrorCart();

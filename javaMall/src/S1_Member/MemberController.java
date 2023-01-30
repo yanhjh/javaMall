@@ -120,13 +120,17 @@ public class MemberController {
 					if(num==1) {System.out.println("수정할 ID입력");
 					String newID=scan.next();
 					check=memberDAO.checkNewId(newID,memberLoginID);
-					if(check) {memberDAO.setMemberID(newID,memberLoginID);}
+					if(check) {memberDAO.setMemberID(newID,memberLoginID);
+					cartController.setMemberID(newID,memberLoginID);
+					boardController.setMemberID(newID,memberLoginID);
+					cartController.setMemberLoginID(newID);}
 					else {continue;}
 					}
 					else if(num==2) {System.out.println("수정할 Pw입력");
 					String newPW=scan.next();
 					check=memberDAO.checkNewPw(pw, newPW);
-					if(check) {memberDAO.setMemberPw(pw,newPW,memberLoginID);}
+					if(check) {memberDAO.setMemberPw(pw,newPW,memberLoginID);
+					boardController.setMemberPw(newPW,memberLoginID);}
 						
 					
 					else {continue;}
@@ -137,6 +141,7 @@ public class MemberController {
 					check=memberDAO.checkNewName(name,newName);
 					if(check) {
 						memberDAO.setMemberName(name,newName,memberLoginID);
+						
 					}
 					else {continue;}
 					}

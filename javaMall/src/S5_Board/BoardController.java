@@ -34,6 +34,29 @@ public class BoardController {
 		
 		
 	}
+	public boolean boardNumCheck(int select) {
+		return boardDAO.boardNumCheck(select);
+	}
+	public boolean boardIdCheck(String id) {
+		return boardDAO.boardIdCheck(id);
+	}
+	public void adminRemoveBoardNum(int select) {
+		boardDAO.adminRemoveBoardNum(select);
+	}
+	public void adminRemoveBoardId(String id) {
+		boardDAO.adminRemoveBoardID(id);
+		
+	}
+	public void showBoardList() {
+		boardDAO.showBoardList();
+	}
+	public void setMemberID(String newID, String memberLoginID) {
+		boardDAO.setMemberID(newID, memberLoginID);
+		
+	}
+	public void setMemberPw( String newPw, String memberLoginID) {
+		boardDAO.setMemberPw( newPw, memberLoginID);
+	}
 	public void setPageSize(int size) {
 		boardDAO.setPageSize(size);
 	}
@@ -94,14 +117,14 @@ public class BoardController {
 				String title=scan.next();
 				System.out.println("내용 입력");
 				String content=scan.next();
-				boardDAO.writeBoard(title,content,mallController.getMemberLoginID());
+				boardDAO.writeBoard(title,content,mallController.getMemberLoginID(),mallController.getMemberPw(mallController.getMemberLoginID()));
 				
 			}
 			else if(sel==3) {
 				System.out.println("pw입력");
 				String pw=scan.next();
 				
-				boolean check=boardDAO.checkPw(mallController.getMemberLoginID(),pw);
+				boolean check=mallController.isCorrectPw(mallController.getMemberLoginID(), pw);
 				if(check) {
 					check=boardDAO.showMyWriting(mallController.getMemberLoginID());
 					if(check) {

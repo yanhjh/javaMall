@@ -27,6 +27,13 @@ public class MallController {
 		return memberController.getMemberPw(memberLoginID);
 		
 	}
+	public boolean isCorrectPw(String memberLoginID,String insertPw) {
+		return memberController.pwCheck(memberLoginID,insertPw);
+	}
+	public void setMemberLoginID(String newID) {
+		memberLoginID=newID;
+		
+	}
 	public String getMemberLoginID() {
 		return memberLoginID;
 	}

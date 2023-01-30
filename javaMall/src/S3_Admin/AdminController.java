@@ -55,7 +55,7 @@ public class AdminController {
 	public void menuBoardAdmin() {
 		while(true) {
 			System.out.println("=== 게시판 관리자===");
-			System.out.println("[1.한 페이지에 보여줄 게시글 수 설정] [0. 뒤로가기]");
+			System.out.println("[1.한 페이지에 보여줄 게시글 수 설정] [2.게시판 출력] [3.게시글 삭제] [0. 뒤로가기]");
 			int select=scan.nextInt();
 			if(select==0) {
 				break;
@@ -67,6 +67,38 @@ public class AdminController {
 				boardController.setPageSize(select);
 				break;
 				
+			}
+			else if(select==2) {
+				boardController.showBoardList();
+			}
+			
+			else if(select==3) {
+				boardController.showBoardList();
+				System.out.println("[1.게시글 번호로 삭제] [2.입력한 id가 작성한 게시글 일괄삭제] [0. 뒤로가기]");
+				select=scan.nextInt();
+				if(select==1) {
+					System.out.println("삭제할 게시글 번호 입력");
+					select=scan.nextInt();
+					boolean check=boardController.boardNumCheck(select);
+					if(check) {boardController.adminRemoveBoardNum(select);}
+					else {System.out.println("입력오류.");}
+				
+					
+				}
+				else if(select==2) {
+					System.out.println("일괄삭제할 id 입력");
+					String id=scan.next();
+					boolean check=boardController.boardIdCheck(id);
+					if(check) {
+					boardController.adminRemoveBoardId(id);
+					}
+					else {System.out.println("입력오류.");}
+					}
+				else if(select==0) {break;}
+				
+			}
+			else {
+				System.out.println("범위내에서 입력.");continue;
 			}
 		}
 	}

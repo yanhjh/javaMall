@@ -10,7 +10,7 @@ import S1_Member.MemberDAO;
 public class BoardDAO {
 
 	private ArrayList<Board> boardList;
-	private MemberDAO memberDao;
+	
 	int count; // 전체 게시글 수
 	int pageSize = 2; // 한 페이지에 보여줄 게시글 수
 	int curPageNum = 1; // 현재 페이지 번호
@@ -24,8 +24,61 @@ public class BoardDAO {
 	public BoardDAO() {
 		
 		boardList = new ArrayList<Board>();
-		memberDao=new MemberDAO();
+		
 
+	}
+	public void adminRemoveBoardNum(int select) {
+	boardList.remove(select-1);
+	count--;
+	getPageCount();
+	for(int i=0;i<boardList.size();i++) {
+		if(boardList.get(i).getBoardNum()!=i+1) {
+			Board b=boardList.get(i);
+			b.setBoardNum(i+1);
+			boardList.set(i, b);
+		}
+	}
+	System.out.println("삭제 완료.");
+		
+	}
+	public void adminRemoveBoardID(String id) {
+		int count=0;
+		for(int i=0;i<boardList.size();i++) {
+			if(boardList.get(i).getWriter().equals(id)) {
+				boardList.remove(i);i--;
+			}
+		}
+		this.count-=count;
+		getPageCount();
+		for(int i=0;i<boardList.size();i++) {
+			if(boardList.get(i).getBoardNum()!=i+1) {
+				Board b=boardList.get(i);
+				b.setBoardNum(i+1);
+				boardList.set(i, b);
+			}
+		}
+		System.out.println("삭제 완료.");
+	}
+	public void showBoardList() {
+		System.out.println(boardList);
+	}
+	public void setMemberID(String newID,String memberLoginID) {
+		for(int i=0;i<boardList.size();i++) {
+			if(boardList.get(i).getWriter().equals(memberLoginID)) {
+				Board b=boardList.get(i);
+				b.setWriter(newID);
+				boardList.set(i, b);
+			}
+		}
+	}
+	public void setMemberPw(String newPw,String memberLoginID) {
+		for(int i=0;i<boardList.size();i++) {
+			if(boardList.get(i).getWriter().equals(memberLoginID)) {
+				Board b=boardList.get(i);
+				b.setPw(newPw);
+				boardList.set(i, b);
+			}
+		}
 	}
 	public void setPageSize(int size) {
 		this.pageSize=size;
@@ -71,20 +124,7 @@ public class BoardDAO {
 		if(count==0) {System.out.println("작성한 글이 존재하지 않습니다.");return false;}
 		else {return true;}
 	}
-	public boolean checkPw(String memberLoginID,String insertPw) {
-		for(int i=0;i<memberDao.getMemberList().size();i++) {
-			if(memberDao.getMemberList().get(i).getMemberID().equals(memberLoginID))
-			{if(memberDao.getMemberList().get(i).getMemberPW().equals(insertPw)) {
-				return true;
-			}
-				
-			}		
-			
-		}
-		return false;
-		
-		
-	}
+	
 	public void showRangeErrMsg() {
 		System.out.println("범위내의 값만 입력해주세요.");
 	}
@@ -205,16 +245,33 @@ public class BoardDAO {
 
 	}
 
-	public void writeBoard(String title, String content, String memberLoginID) {
+	public void writeBoard(String title, String content, String memberLoginID,String pw) {
+		
+		
+		
 		Board m = new Board();
 		count++;
 		m.setBoardNum(boardList.size()+1);
-
+		m.setPw(pw);
 		m.setTitle(title);
 		m.setContent(content);
 		m.setWriter(memberLoginID);
 		boardList.add(m);
 
+	}
+	public boolean boardIdCheck(String id) {
+		int count=0;
+		for(int i=0;i<boardList.size();i++) {
+			if(boardList.get(i).getWriter().equals(id)) {count++;}
+		}
+		if(count==0) {return false;}
+		return true;
+		
+	}
+	public boolean boardNumCheck(int select) {
+		if(select<=boardList.size()) {return true;}
+		return false;
+		
 	}
 
 	public boolean checkBoardSize() {

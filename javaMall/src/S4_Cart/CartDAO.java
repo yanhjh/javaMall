@@ -25,6 +25,32 @@ public class CartDAO {
 		cartNumber += 1;
 		return cartNumber;
 	}
+	public void setMemberID(String newID,String memberLoginID) {
+		for(int i=0;i<cartList.size();i++) {
+			if(cartList.get(i).getMemberID().equals(memberLoginID)) {
+				Cart c=cartList.get(i);
+				c.setMemberID(newID);
+				cartList.set(i, c);
+			}
+			
+		}
+		for(int i=0;i<orderList.size();i++) {
+			if(orderList.get(i).getMemberID().equals(memberLoginID)) {
+				Cart c=orderList.get(i);
+				c.setMemberID(newID);
+				orderList.set(i, c);
+			}
+			
+		}
+		for(int i=0;i<receiveList.size();i++) {
+			if(receiveList.get(i).getMemberID().equals(memberLoginID)) {
+				Cart c=cartList.get(i);
+				c.setMemberID(newID);
+				receiveList.set(i, c);
+			}
+			
+		}
+	}
 
 	public void removeCartListItem(String itemName) {
 		for (int i = 0; i < cartList.size(); i++) {

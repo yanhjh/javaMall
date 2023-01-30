@@ -26,8 +26,12 @@ public class MemberDAO {
 		return memberList.get(idx).getMemberPW();
 		
 	}
-	public ArrayList<Member> getMemberList() {
-		return  memberList;
+	
+	public boolean isCorrectPw(String memberLoginID,String insertPw) {
+		System.out.println(memberList);
+
+		return false;
+		
 	}
 	public boolean pwCheck(String memberLoginID,String memberLoginPw) {
 		for(int i=0;i<memberList.size();i++) {

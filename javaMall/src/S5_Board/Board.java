@@ -77,8 +77,8 @@ public class Board {
 	public void setWriter(String memberLoginID) {
 		this.writer=memberLoginID;
 	}
-	public void setPw(String memberLoginPw) {
-		this.pw=memberLoginPw;
+	public void setPw(String newPw) {
+		this.pw=newPw;
 	}
 	
 
