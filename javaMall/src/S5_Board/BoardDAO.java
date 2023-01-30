@@ -151,7 +151,7 @@ public class BoardDAO {
 	
 	public void boardSelect(int sel) {
 		
-		
+		//이전 다음 둘다 있을때
 		if(pageStatus==1) {
 			
 			 if(sel==2) {minusCurPageNum();return;
@@ -161,13 +161,13 @@ public class BoardDAO {
 			 if(sel==3) {plusCurPageNum();return;
 				
 			}
-			else {System.out.println("1");showRangeErrMsg();return;}
+			else {showRangeErrMsg();return;}
 		}
 		else if(pageStatus==2) {
 			if(sel==2) {plusCurPageNum();return;
 				
 			}
-			else {System.out.println("2");showRangeErrMsg();return;}
+			else {showRangeErrMsg();return;}
 			
 			
 			
@@ -176,7 +176,7 @@ public class BoardDAO {
 			if(sel==2) {minusCurPageNum();return;
 				
 			}
-			else {System.out.println("3");showRangeErrMsg();return;}
+			else {showRangeErrMsg();return;}
 		}
 		
 	}
@@ -204,25 +204,43 @@ public class BoardDAO {
 		}
 	}
 	public void setPageStatus() {
-		if(pageCount!=1) {
+		if(pageCount==1) {
+			nextPage=false;
+			previousPage=false;
+		}
+		else {
+			if(curPageNum==1) {previousPage=false;
+			
+			}
+			else {previousPage=true;}
+			
 			if(curPageNum==pageCount) {
 				nextPage=false;
 			}
 			else {
-				
 				nextPage=true;
-				if(curPageNum!=1) {
-					previousPage=true;
-				}
-				else {
-					previousPage=false;
-				}
 			}
+			
 		}
-		else {
-			previousPage=false;
-			nextPage=false;
-		}
+//		if(pageCount!=1) {
+//			if(curPageNum==pageCount) {
+//				nextPage=false;
+//			}
+//			else {
+//				
+//				nextPage=true;
+//				if(curPageNum!=1) {
+//					previousPage=true;
+//				}
+//				else {
+//					previousPage=false;
+//				}
+//			}
+//		}
+//		else {
+//			previousPage=false;
+//			nextPage=false;
+//		}
 	}
 
 	public void showBoard() {
@@ -235,7 +253,7 @@ public class BoardDAO {
 			if(i+1==boardList.size()) {break;}
 		}
 		
-		getPageCount();
+		
 		System.out.println("현재페이지: "+curPageNum+"/"+"마지막페이지: "+pageCount);
 		startRow=(count)*pageSize+1;
 		
@@ -258,6 +276,8 @@ public class BoardDAO {
 		m.setContent(content);
 		m.setWriter(memberLoginID);
 		boardList.add(m);
+		getPageCount();
+		setPageStatus();
 
 	}
 	public boolean boardIdCheck(String id) {
