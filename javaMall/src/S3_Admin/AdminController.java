@@ -80,7 +80,8 @@ public class AdminController {
 					System.out.println("삭제할 게시글 번호 입력");
 					select=scan.nextInt();
 					boolean check=boardController.boardNumCheck(select);
-					if(check) {boardController.adminRemoveBoardNum(select);}
+					if(check) {boardController.adminRemoveBoardNum(select);
+					System.out.println("삭제완료.");}
 					else {System.out.println("입력오류.");}
 				
 					
@@ -91,6 +92,7 @@ public class AdminController {
 					boolean check=boardController.boardIdCheck(id);
 					if(check) {
 					boardController.adminRemoveBoardId(id);
+					System.out.println("삭제완료.");
 					}
 					else {System.out.println("입력오류.");}
 					}
@@ -98,7 +100,7 @@ public class AdminController {
 				
 			}
 			else {
-				System.out.println("범위내에서 입력.");continue;
+				System.out.println("범위내에서 입력하세요.");continue;
 			}
 		}
 	}
@@ -118,6 +120,9 @@ public class AdminController {
 
 			} else if (select==3) {
 				cartController.printReceiveList();
+			}
+			else {
+				System.out.println("입력 오류.");
 			}
 		}
 	}
@@ -155,6 +160,7 @@ public class AdminController {
 				}
 
 			}
+			else {System.out.println("입력오류.");}
 		}
 	}
 
@@ -171,6 +177,9 @@ public class AdminController {
 				if(check==true) {cartController.printAllCartList();}
 				else {cartController.showErrorCart();}
 
+			}
+			else {
+				System.out.println("입력오류.");
 			}
 		}
 	}

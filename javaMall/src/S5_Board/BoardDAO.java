@@ -60,6 +60,7 @@ public class BoardDAO {
 		System.out.println("삭제 완료.");
 	}
 	public void showBoardList() {
+		if(boardList.size()==0) {System.out.println("출력할 게시글이 존재하지 않습니다.");return;}
 		System.out.println(boardList);
 	}
 	public void setMemberID(String newID,String memberLoginID) {
@@ -70,7 +71,7 @@ public class BoardDAO {
 				boardList.set(i, b);
 			}
 		}
-	}
+	System.out.println("수정완료.");}
 	public void setMemberPw(String newPw,String memberLoginID) {
 		for(int i=0;i<boardList.size();i++) {
 			if(boardList.get(i).getWriter().equals(memberLoginID)) {
@@ -79,7 +80,7 @@ public class BoardDAO {
 				boardList.set(i, b);
 			}
 		}
-	}
+	System.out.println("수정완료.");}
 	public void setPageSize(int size) {
 		this.pageSize=size;
 		System.out.println("설정완료.");
