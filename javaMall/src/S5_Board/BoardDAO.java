@@ -3,13 +3,14 @@ package S5_Board;
 import java.util.ArrayList;
 
 import S1_Member.MemberController;
+import S1_Member.MemberDAO;
 
 
 
 public class BoardDAO {
 
 	private ArrayList<Board> boardList;
-	private MemberController memberController;
+	private MemberDAO memberDao;
 	int count; // 전체 게시글 수
 	int pageSize = 2; // 한 페이지에 보여줄 게시글 수
 	int curPageNum = 1; // 현재 페이지 번호
@@ -23,21 +24,40 @@ public class BoardDAO {
 	public BoardDAO() {
 		
 		boardList = new ArrayList<Board>();
+		memberDao=new MemberDAO();
 
 	}
+	public void setPageSize(int size) {
+		this.pageSize=size;
+		System.out.println("설정완료.");
+	}
 	public void deleteMyWriting(int sel,String memberLoginID) {
-		int count=0;
-		for(int i=0;i<boardList.size();i++) {
-			if(boardList.get(i).getWriter().equals(memberLoginID)) {
-				if(boardList.get(i).getBoardNum()==sel) {
-					count++;
-					boardList.remove(i);
-				}
-			}
+		if(sel>boardList.size()) {
+			System.out.println("존재하지 않는 게시글 번호입니다.");return;
 		}
-		if(count==0) {
-			System.out.println("게시글번호를 다시 확인해주세요.");
+	
+		if(boardList.get(sel-1).getWriter().equals(memberLoginID)) {
+			boardList.remove(sel-1);
+			count--;
+			getPageCount();
+			
 		}
+		for(int i=sel-1;i<boardList.size();i++) {
+			
+			Board b=new Board();
+			
+			b.setBoardNum(boardList.get(i).getBoardNum()-1);
+			b.setContent(boardList.get(i).getContent());
+			b.setPw(boardList.get(i).getPw());
+			b.setTitle(boardList.get(i).getTitle());
+			b.setWriter(boardList.get(i).getWriter());
+			
+			boardList.set(i, b);
+			curPageNum=1;
+		}
+		
+		
+		
 		
 	}
 	public boolean showMyWriting(String memberLoginID) {
@@ -51,9 +71,18 @@ public class BoardDAO {
 		if(count==0) {System.out.println("작성한 글이 존재하지 않습니다.");return false;}
 		else {return true;}
 	}
-	public boolean checkPw(String memberLoginID,String pw) {
-		memberController.getInstance();
-		return memberController.pwCheck(memberLoginID, memberLoginID);
+	public boolean checkPw(String memberLoginID,String insertPw) {
+		for(int i=0;i<memberDao.getMemberList().size();i++) {
+			if(memberDao.getMemberList().get(i).getMemberID().equals(memberLoginID))
+			{if(memberDao.getMemberList().get(i).getMemberPW().equals(insertPw)) {
+				return true;
+			}
+				
+			}		
+			
+		}
+		return false;
+		
 		
 	}
 	public void showRangeErrMsg() {
@@ -127,7 +156,11 @@ public class BoardDAO {
 	}
 	
 	public void getPageCount() {
-		pageCount=count/pageSize+1;
+		if(count%2==1) {
+		pageCount=count/pageSize+1;}
+		else {
+			pageCount=count/pageSize;
+		}
 	}
 	public void setPageStatus() {
 		if(pageCount!=1) {
@@ -155,7 +188,7 @@ public class BoardDAO {
 		
 		int idx=-1;
 		System.out.println("=====쇼핑몰 게시판=====");
-		for (int i = (curPageNum-1)*pageSize; i < (curPageNum-1)*pageSize+2; i++) {idx=i;
+		for (int i = (curPageNum-1)*pageSize; i < (curPageNum-1)*pageSize+pageSize; i++) {idx=i;
 			System.out.println(boardList.get(i).getBoardNum() + ") " + boardList.get(i).getTitle() + " /"
 					+ boardList.get(i).getWriter());
 			if(i+1==boardList.size()) {break;}
@@ -163,7 +196,7 @@ public class BoardDAO {
 		
 		getPageCount();
 		System.out.println("현재페이지: "+curPageNum+"/"+"마지막페이지: "+pageCount);
-		startRow=(count)*2+1;
+		startRow=(count)*pageSize+1;
 		
 		
 		

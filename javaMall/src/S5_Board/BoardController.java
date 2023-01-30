@@ -34,6 +34,9 @@ public class BoardController {
 		
 		
 	}
+	public void setPageSize(int size) {
+		boardDAO.setPageSize(size);
+	}
 	
 	public void menuBoard() {
 		while(true) {
@@ -97,6 +100,7 @@ public class BoardController {
 			else if(sel==3) {
 				System.out.println("pwÀÔ·Â");
 				String pw=scan.next();
+				
 				boolean check=boardDAO.checkPw(mallController.getMemberLoginID(),pw);
 				if(check) {
 					check=boardDAO.showMyWriting(mallController.getMemberLoginID());

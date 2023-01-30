@@ -6,6 +6,7 @@ import S1_Member.MemberController;
 import S1_Member.MemberDAO;
 import S2_Item.ItemController;
 import S4_Cart.CartController;
+import S5_Board.BoardController;
 import S_MyUtil.Util;
 
 public class AdminController {
@@ -22,17 +23,19 @@ public class AdminController {
 	private MemberController memberController;
 	private ItemController itemController;
 	private CartController cartController;
+	private BoardController boardController;
 
 	public void init() {
 		scan = Util.scan;
 		itemController = ItemController.getInstance();
 		cartController = CartController.getInstance();
 		memberController = MemberController.getInstance();
+		boardController=BoardController.getInstance();
 	}
 
 	public String menuAdmin() {
 		while (true) {
-			System.out.println("[1.회원관리] [2.상품관리] [3.장바구니관리] [0.뒤로가기]");
+			System.out.println("[1.회원관리] [2.상품관리] [3.장바구니관리] [4.게시판관리] [0.뒤로가기]");
 			int select = scan.nextInt();
 			if (select == 0) {
 				return null;
@@ -42,6 +45,28 @@ public class AdminController {
 				menuItemAdmin();
 			} else if (select == 3) {
 				menuCartAdmin();
+			}
+			else if(select==4) {
+				menuBoardAdmin();
+			}
+		}
+	}
+	
+	public void menuBoardAdmin() {
+		while(true) {
+			System.out.println("=== 게시판 관리자===");
+			System.out.println("[1.한 페이지에 보여줄 게시글 수 설정] [0. 뒤로가기]");
+			int select=scan.nextInt();
+			if(select==0) {
+				break;
+			}
+			else if(select==1) {
+				System.out.println("한 페이지에 보여줄 게시글 수를 입력하세요.");
+				select=scan.nextInt();
+				if(select<1) {System.out.println("1이상값으로 설정.");break;}
+				boardController.setPageSize(select);
+				break;
+				
 			}
 		}
 	}

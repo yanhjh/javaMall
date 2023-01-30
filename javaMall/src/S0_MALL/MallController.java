@@ -23,6 +23,10 @@ public class MallController {
 		adminController = AdminController.getInstance();
 		memberLoginID = null;
 	}	
+	public String getMemberPw(String memberLoginID) {
+		return memberController.getMemberPw(memberLoginID);
+		
+	}
 	public String getMemberLoginID() {
 		return memberLoginID;
 	}

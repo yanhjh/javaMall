@@ -31,6 +31,11 @@ public class MemberController {
 		scan = Util.scan;
 		managerSetting();
 	}
+	public String getMemberPw(String memberLoginID) {
+		return memberDAO.getMemberPw(memberLoginID);
+		
+		
+	}
 	public boolean pwCheck(String memberLoginID,String pw) {
 		return memberDAO.pwCheck(memberLoginID,pw);
 	}

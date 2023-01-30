@@ -16,6 +16,19 @@ public class MemberDAO {
 	public void printSetMenu() {
 		System.out.println("[1]ID 수정 [2]PW 수정 [3]이름 수정 [0]뒤로가기");
 	}
+	public String getMemberPw(String memberLoginID) {
+		int idx=-1;
+		for(int i=0;i<memberList.size();i++) {
+			if(memberList.get(i).getMemberID().equals(memberLoginID)) {
+				idx=i;
+			}
+		}
+		return memberList.get(idx).getMemberPW();
+		
+	}
+	public ArrayList<Member> getMemberList() {
+		return  memberList;
+	}
 	public boolean pwCheck(String memberLoginID,String memberLoginPw) {
 		for(int i=0;i<memberList.size();i++) {
 			if(memberList.get(i).getMemberID().equals(memberLoginID)) {
@@ -101,6 +114,7 @@ public class MemberDAO {
 		
 		Member m=memberList.get(idx);
 		m.setMemberPW(newPW);
+		memberList.set(idx, m);
 		System.out.println("PW 수정완료 "+pw+" ==> "+newPW);
 	}
 	public void setMemberID(String newId, String memberLoginID) {
