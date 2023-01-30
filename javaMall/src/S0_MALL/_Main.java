@@ -15,7 +15,7 @@ import S_MyUtil.Util;
 public class _Main {
 
 	public static void main(String[] args) {
-	
+	1
 		MallController.getInstance().init();
 		AdminController.getInstance().init();
 		MemberController.getInstance().init(new MemberDAO());		
