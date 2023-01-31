@@ -84,6 +84,8 @@ public class BoardDAO {
 	public void setPageSize(int size) {
 		this.pageSize=size;
 		System.out.println("설정완료.");
+		curPageNum=1;
+		getPageCount();
 	}
 	public void deleteMyWriting(int sel,String memberLoginID) {
 		if(sel>boardList.size()) {
