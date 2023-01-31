@@ -86,11 +86,13 @@ public class BoardController {
 					if(sel==0) {break;}
 					else if(sel==1) {System.out.println("현재 페이지내에 있는 글 중에서 확인할 게시글 번호를 입력하세요");
 					sel=scan.nextInt();
+					check=boardDAO.boardCheck(sel);
+					if(!check) {System.out.println("존재하지 않는 게시글 번호입니다.");continue;}
 					check=boardDAO.rangeCheck(sel);
 					if(check) {
 						boardDAO.printContent(sel);
 						
-					}	
+					}
 					continue;}
 					boardDAO.boardSelect(sel);
 					

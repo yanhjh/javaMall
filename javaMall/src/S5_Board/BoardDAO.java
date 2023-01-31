@@ -136,11 +136,16 @@ public class BoardDAO {
 		curPageNum--;
 	}
 	public void printContent(int sel) {
+		
 		System.out.println("게시글 번호:"+boardList.get(sel-1).getBoardNum());
 		System.out.println("게시글 제목:"+boardList.get(sel-1).getTitle());
 		System.out.println("게시글 내용:"+boardList.get(sel-1).getContent());
 	
 		
+	}
+	public boolean boardCheck(int sel) {
+		if(sel>boardList.size()) {return false;}
+		return true;
 	}
 	public boolean rangeCheck(int sel) {
 		if(sel>=(curPageNum-1)*pageSize+1&&sel<=curPageNum*pageSize) {
@@ -276,6 +281,7 @@ public class BoardDAO {
 		m.setContent(content);
 		m.setWriter(memberLoginID);
 		boardList.add(m);
+		System.out.println("작성 완료.");
 		getPageCount();
 		setPageStatus();
 
